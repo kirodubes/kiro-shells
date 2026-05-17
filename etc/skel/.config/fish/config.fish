@@ -220,6 +220,8 @@ alias upal="paru -Syu --noconfirm"
 alias ua="paru -Syu --noconfirm"
 alias u="sudo pacman -Syyu"
 alias up="./up.sh"
+alias build="./build.sh"
+alias setup="./setup.sh"
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep="grep --color=auto"
