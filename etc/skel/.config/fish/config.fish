@@ -40,8 +40,6 @@ end
 # reload fish config
 function reload
     exec fish
-    set -l config (status -f)
-    echo "reloading: $config"
 end
 
 # Starship prompt
@@ -91,7 +89,7 @@ end
 #  echo
 #end
 
-if test tree >/dev/null
+if type -q tree
     function l1;  tree --dirsfirst -ChFL 1 $argv; end
     function l2;  tree --dirsfirst -ChFL 2 $argv; end
     function l3;  tree --dirsfirst -ChFL 3 $argv; end
@@ -139,7 +137,7 @@ function ex --description "Extract bundled & compressed files"
             case '*.bz2'
                 bunzip2 $argv[1]
             case '*.rar'
-                unrar $argv[1]
+                unrar x $argv[1]
             case '*.gz'
                 gunzip $argv[1]
             case '*.tar'
@@ -155,7 +153,7 @@ function ex --description "Extract bundled & compressed files"
             case '*.7z'
                 7z $argv[1]
             case '*.deb'
-                ar $argv[1]
+                ar x $argv[1]
             case '*.tar.xz'
                 tar xf $argv[1]
             case '*.tar.zst'
@@ -183,7 +181,7 @@ alias ls="ls --color=auto"
 alias la="ls -a"
 alias ll="ls -alFh"
 alias l="ls"
-alias l.="ls -A | egrep '^\.'"
+alias l.="ls -A | grep -E '^\\.'"
 alias listdir="ls -d */ > list"
 
 #pacman
@@ -202,7 +200,11 @@ end
 
 alias depends='function_depends'
 
-if type -q exa
+if type -q eza
+    alias ls="eza"
+    alias xls="eza -a --icons --color=always --group-directories-first"
+    alias xll="eza -lag --icons --color=always --group-directories-first --octal-permissions"
+else if type -q exa
     alias ls="exa"
     alias xls="exa -a --icons --color=always --group-directories-first"
     alias xll="exa -lag --icons --color=always --group-directories-first --octal-permissions"
@@ -294,8 +296,8 @@ alias update-fc="sudo fc-cache -fv"
 alias bupskel="cp -Rf /etc/skel ~/.skel-backup-(date +%Y.%m.%d-%H.%M.%S)"
 
 #copy shell configs
-alias cb="cp /etc/skel/.bashrc ~/.bashrc && echo "Copied.""
-alias cz="cp /etc/skel/.zshrc ~/.zshrc && echo "Copied.""
+alias cb='cp /etc/skel/.bashrc ~/.bashrc && echo "Copied."'
+alias cz='cp /etc/skel/.zshrc ~/.zshrc && echo "Copied."'
 alias cf="cp /etc/skel/.config/fish/config.fish ~/.config/fish/config.fish && exec fish"
 
 #switch between bash, zsh and fish
@@ -387,7 +389,7 @@ alias listaur="sudo pacman -Qqem"
 
 #clear
 alias clean="clear; seq 1 (tput cols) | sort -R | sparklines | lolcat"
-alias cls="clear; seq 1 $(tput cols) | sort -R | sparklines | lolcat"
+alias cls="clear; seq 1 (tput cols) | sort -R | sparklines | lolcat"
 
 #search content with ripgrep
 alias rg="rg --sort path"
@@ -470,7 +472,7 @@ alias fix-pacman-keyserver="/usr/local/bin/edu-fix-pacman-gpg-conf"
 alias fix-archlinux-mirrors="/usr/local/bin/edu-fix-archlinux-servers"
 
 #maintenance
-alias big="expac -H M "%m\t%n" | sort -h | nl"
+alias big='expac -H M "%m\t%n" | sort -h | nl'
 
 #hblock (stop tracking with hblock)
 #use unhblock to stop using hblock
@@ -503,8 +505,8 @@ alias grh="git reset --hard"
 alias pamac-unlock="sudo rm /var/tmp/pamac/dbs/db.lock"
 
 
-# git
-alias undopush "git push -f origin HEAD^:master"
+# git — force-pushes to master, use with caution
+alias undopush="git push -f origin HEAD^:master"
 
 
 # colors to set or unset
@@ -527,14 +529,12 @@ set fish_color_operator "#fe8019"
 set fish_color_param "#81a2be"
 set fish_color_quote "#b8bb26"
 set fish_color_redirection "#d3869b"
-set fish_color_search_match bryellow background=brblack
 set fish_color_selection white --bold background=brblack
 set fish_color_status red
 set fish_color_user brgreen
 set fish_color_valid_path --underline
 set fish_pager_color_completion normal
 set fish_pager_color_description "#B3A06D" yellow
-set fish_pager_color_prefix normal --bold underline
 set fish_pager_color_prefix white --bold --underline
 set fish_pager_color_progress brwhite --background=cyan
 set fish_color_search_match --background="#60AEFF"
