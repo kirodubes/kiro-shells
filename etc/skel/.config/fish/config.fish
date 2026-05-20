@@ -529,7 +529,7 @@ set fish_color_operator "#fe8019"
 set fish_color_param "#81a2be"
 set fish_color_quote "#b8bb26"
 set fish_color_redirection "#d3869b"
-set fish_color_selection white --bold background=brblack
+set fish_color_selection white --bold --background=brblack
 set fish_color_status red
 set fish_color_user brgreen
 set fish_color_valid_path --underline
