@@ -248,9 +248,6 @@ alias setlocales="sudo localectl set-x11-keymap be && sudo localectl set-locale 
 alias unlock="sudo rm /var/lib/pacman/db.lck"
 alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
 
-#logout unlock
-alias rmlogoutlock="sudo rm /tmp/arcologout.lock"
-
 #which graphical card is working
 alias whichvga="/usr/local/bin/edu-which-vga"
 
@@ -279,12 +276,6 @@ alias upa="paru -Syu --noconfirm"
 #ps
 alias psa="ps auxf"
 alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
-
-#grub update
-alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-#grub issue 08/2022
-alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArcoLinux"
 
 #add new fonts
 alias update-fc="sudo fc-cache -fv"
@@ -400,7 +391,6 @@ alias jclean="sudo journalctl --rotate && sudo journalctl --vacuum-time=1s"
 
 #nano for important configuration files
 #know what you do in these files
-alias nlxdm="sudo $EDITOR /etc/lxdm/lxdm.conf"
 alias nlightdm="sudo $EDITOR /etc/lightdm/lightdm.conf"
 alias npacman="sudo $EDITOR /etc/pacman.conf"
 alias ngrub="sudo $EDITOR /etc/default/grub"
@@ -422,22 +412,13 @@ alias nresolv="sudo $EDITOR /etc/resolv.conf"
 alias nb="$EDITOR ~/.bashrc"
 alias nz="$EDITOR ~/.zshrc"
 alias nf="$EDITOR ~/.config/fish/config.fish"
-alias nneofetch="$EDITOR ~/.config/neofetch/config.conf"
 alias nfastfetch="$EDITOR ~/.config/fastfetch/config.jsonc"
 alias nplymouth="sudo $EDITOR /etc/plymouth/plymouthd.conf"
 alias nvconsole="sudo $EDITOR /etc/vconsole.conf"
 alias nenvironment="sudo $EDITOR /etc/environment"
 alias nloader="sudo $EDITOR /boot/efi/loader/loader.conf"
-alias nrefind="sudo $EDITOR /boot/refind_linux.conf"
 alias nalacritty="$EDITOR /home/$USER/.config/alacritty/alacritty.toml"
-alias nemptty="sudo $EDITOR /etc/emptty/conf"
 alias nkitty="$EDITOR ~/.config/kitty/kitty.conf"
-alias npicom="$EDITOR ~/.config/arco-chadwm/picom/picom.conf"
-
-#removing packages
-alias rvariety="edu-remove-variety"
-alias rkmix="edu-remove-kmix"
-alias rconky="edu-remove-conky"
 
 #reading logs with bat
 alias lcalamares="bat /var/log/Calamares.log"
