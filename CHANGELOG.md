@@ -10,6 +10,10 @@
 ### Files Modified
 - `etc/skel/.config/fish/config.fish`
 
+### Verified
+- Rebuilt and confirmed live: `edu-shells-git` 26.05-10 (built 09:14). Installed
+  `/etc/skel/.config/fish/config.fish` has no grub references.
+
 ## 2026.05.18
 
 ### What Changed
