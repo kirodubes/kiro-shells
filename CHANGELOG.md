@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026.05.31
+
+### What Changed
+- Fixed the stale skel-script path in the shell-config comments. `.zshrc`,
+  `.bashrc-latest`, and `.config/fish/config.fish` all said the skel alias was
+  "replaced with a script at `/usr/local/bin/skel`" — a path that no longer
+  exists. They now point at `/usr/local/bin/kiro-skell`, the actual Kiro
+  system tool. Part of the ecosystem-wide `skel` → `skell` / `kiro-skell`
+  double-L naming consistency pass (convention recorded in
+  `Kiro-HQ/ASSISTANT.md`). `/etc/skel` (the Linux path) is unchanged.
+
+### Files Modified
+- `etc/skel/.zshrc`
+- `etc/skel/.bashrc-latest`
+- `etc/skel/.config/fish/config.fish`
+
 ## 2026.05.29
 
 ### What Changed
