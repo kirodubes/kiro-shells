@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026.06.06
+
+### What Changed
+- **fish: add `~/.local/bin` and `~/.bin` to PATH.** The skel `config.fish`
+  never put the user-local bin dirs on PATH, while `.zshrc` already did
+  (its `$HOME/.bin` / `$HOME/.local/bin` guards). This fish/zsh parity gap
+  meant tools that install into `~/.local/bin` (e.g. the Antigravity CLI
+  self-updater, which drops `agy` there and patches the user's shell config
+  itself) were not found on a default fish login. fish users now get the
+  same PATH coverage out of the box — installers no longer need to hack
+  `config.fish`.
+
+### Technical Details
+- Added a `for dir in $HOME/.bin $HOME/.local/bin` loop right after the
+  interactive-shell guard in `etc/skel/.config/fish/config.fish`. Each dir is
+  prepended only if it exists and is not already on PATH (`test -d` +
+  `not contains`), yielding the same `~/.local/bin` → `~/.bin` precedence as
+  `.zshrc`. Validated with `fish -n`.
+- Affects newly created users only (skel) — existing homes keep their config.
+  Ship sequence: rebuild `kiro-shells` → install → `kiro-skell` → test.
+
+### Files Modified
+- etc/skel/.config/fish/config.fish
+- CHANGELOG.md
+
 ## 2026.05.31
 
 ### What Changed
@@ -10,6 +35,9 @@
   system tool. Part of the ecosystem-wide `skel` → `skell` / `kiro-skell`
   double-L naming consistency pass (convention recorded in
   `Kiro-HQ/ASSISTANT.md`). `/etc/skel` (the Linux path) is unchanged.
+- Reviewed and **deliberately left single-L**: the `bupskel` alias and its
+  `~/.skel-backup-*` folder. It backs up the `/etc/skel` *directory* (a path
+  operation), not the restore command, so double-L would be incorrect here.
 
 ### Files Modified
 - `etc/skel/.zshrc`

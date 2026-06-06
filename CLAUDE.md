@@ -1,4 +1,4 @@
-# edu-shells — Project Instructions
+# kiro-shells — Project Instructions
 
 ## Purpose
 Educational shell scripts and automation utilities for Arch Linux / Kiro distro work.

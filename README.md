@@ -2,7 +2,7 @@
   <img src="kiro.jpg" alt="Kiro" width="220" />
 </p>
 
-# edu-shells
+# kiro-shells
 
 Educational shell scripts and automation utilities for Arch Linux / Kiro distro development.
 
