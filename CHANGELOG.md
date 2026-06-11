@@ -1,5 +1,39 @@
 # Changelog
 
+## 2026.06.11
+
+### What Changed
+- **bash + zsh: SSH-scoped `TERM` fallback for Alacritty.** When you SSH from
+  Alacritty (`TERM=alacritty`) to a host that lacks the `alacritty` terminfo
+  entry — old NAS boxes, firewalls, appliances — the remote can't interpret the
+  cursor-movement sequences, so the prompt wanders and you end up typing blind.
+  Added an `ssh()` wrapper that forces `TERM=xterm-256color` for the SSH call
+  only when the local terminal is `alacritty`/`alacritty-direct`; the local
+  session keeps full Alacritty terminfo and any other `TERM` passes through
+  unchanged. Reported by cyberagency on Discussions #45.
+
+### Technical Details
+- Identical POSIX `ssh()` function added to `etc/skel/.bashrc-latest` and
+  `etc/skel/.zshrc`, placed after the existing `ex()` function. Uses a `case`
+  on `$TERM` and `command ssh` to avoid recursion; only `ssh` is wrapped
+  (`scp`/`sftp`/`rsync` allocate no remote pty, so they're unaffected).
+- **fish needs no change** — its `config.fish` already sets
+  `set TERM "xterm-256color"`, which fish exports to child processes (verified:
+  `fish -c 'set TERM xterm-256color; env | grep ^TERM'`), so fish SSH sessions
+  were never affected.
+- Considered and rejected a single `~/.ssh/config` `SetEnv TERM=...` line: TERM
+  rides the pty-req, not the env channel, so it's unreliable for this.
+- Verified against the real edited files with a stubbed `ssh` on PATH: bash/zsh
+  override to `xterm-256color` for `alacritty`/`alacritty-direct`, pass other
+  TERMs through, and the bash function loads correctly past the
+  `[[ $- != *i* ]] && return` interactive guard.
+- Affects newly created users only (skel). Ship sequence: rebuild `kiro-shells`
+  → install → `kiro-skell` → test.
+
+### Files Modified
+- etc/skel/.bashrc-latest
+- etc/skel/.zshrc
+
 ## 2026.06.06
 
 ### What Changed
