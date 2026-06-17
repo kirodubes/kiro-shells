@@ -10,7 +10,7 @@ tput sgr0
 echo
 
 echo "We assume you have installed these packages"
-echo "sudo pacman -S fish edu-shells-git"
+echo "sudo pacman -S fish kiro-shells"
 echo
 echo "Now change to fish with our alias - type it in a terminal"
 echo
