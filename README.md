@@ -4,14 +4,22 @@
 
 # kiro-shells
 
-Educational shell scripts and automation utilities for Arch Linux / Kiro distro development.
+Meta-package for the Kiro shell configuration. Installing `kiro-shells` pulls in all
+three per-shell config packages:
 
-## Scripts
+- [`kiro-bash-config`](https://github.com/kirodubes/kiro-bash-config) — bash (`/etc/skel/.bashrc`)
+- [`kiro-zsh-config`](https://github.com/kirodubes/kiro-zsh-config) — zsh (`/etc/skel/.zshrc`)
+- [`kiro-fish-config`](https://github.com/kirodubes/kiro-fish-config) — fish (`/etc/skel/.config/fish/`)
 
-- `setup.sh` — initial environment setup
-- `up.sh` — update/sync script
+The shell configs used to live here directly; they were split into the three packages
+above on 2026.06.26. This repo now ships no `/etc/skel` payload of its own — it exists only
+to provide the `kiro-shells` meta-package and its maintenance scripts.
 
-## Usage
+## Install
+
+```bash
+sudo pacman -S kiro-shells
+```
 
 > DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
 

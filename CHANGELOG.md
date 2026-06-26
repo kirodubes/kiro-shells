@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026.06.26
+
+### What Changed
+- **Split into three packages; `kiro-shells` is now a meta-package.** The bash, zsh and
+  fish configs that used to ship from this repo's `etc/skel/` were moved into three new
+  independently versioned packages — `kiro-bash-config`, `kiro-zsh-config`,
+  `kiro-fish-config`. `kiro-shells` keeps its name and now `depends` on all three, so
+  existing installs and the ISO package list migrate transparently.
+
+### Technical Details
+- Removed `etc/skel/` from this repo (payload moved to the three new repos).
+- Build-clone PKGBUILD: `depends=('kiro-bash-config' 'kiro-zsh-config' 'kiro-fish-config')`,
+  empty `package()`, dropped `install=readme.install` and the `_destname1` payload copy.
+- Kept `replaces=('edu-shells-git')` + `conflicts=('edu-shells-git')`; moved the
+  `cachyos-fish-config` conflict to `kiro-fish-config`.
+- The ISO's separate skel `.bashrc` bake (in `kiro-iso` `up.sh` / `build-the-iso.sh`) was
+  repointed from `kiro-shells` to `kiro-bash-config`.
+
+### Files Modified
+- `README.md`, `CLAUDE.md`, `CHANGELOG.md`, removed `etc/skel/**`
+
 ## 2026.06.11
 
 ### What Changed
